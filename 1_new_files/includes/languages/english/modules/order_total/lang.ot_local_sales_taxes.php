@@ -11,7 +11,8 @@
  *	different criteria.
  *  ot_local_sales_taxes.php  version 2.5.3
  */
-
-  define('MODULE_ORDER_TOTAL_COUNTY_LOCAL_TAX_TITLE', 'Local Sales Taxes');
-  define('MODULE_ORDER_TOTAL_COUNTY_LOCAL_TAX_DESCRIPTION', 'County/State Local Sales Taxes');
-  define('MODULE_ORDER_TOTAL_COUNTY_LOCAL_SALES_TAX', 'Sales Tax:');
+return [
+    'MODULE_ORDER_TOTAL_COUNTY_LOCAL_TAX_TITLE' => 'Local Sales Taxes',
+    'MODULE_ORDER_TOTAL_COUNTY_LOCAL_TAX_DESCRIPTION' => 'County/State Local Sales Taxes',
+    'MODULE_ORDER_TOTAL_COUNTY_LOCAL_SALES_TAX' => 'Sales Tax:',
+];
