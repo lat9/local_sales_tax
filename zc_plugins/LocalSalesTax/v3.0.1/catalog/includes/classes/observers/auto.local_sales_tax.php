@@ -2,6 +2,8 @@
 /**
  *  ot_local_sales_tax module
  *
+ * Last updated: v3.0.1
+ *
  *   By Heather Gardner AKA: LadyHLG
  *   The module should apply tax based on the field you
  *   choose options are Zip Code, City, and Suburb.
@@ -62,6 +64,13 @@ class zcObserverLocalSalesTax extends base
             return;
         }
 
+        // -----
+        // There were local sales taxes to apply. Include the state's base tax in
+        // the calculations as well.
+        //
+        $order->products[$index]['tax'] += zen_get_tax_rate($products[$loop]['tax_class_id'], $taxCountryId, $taxZoneId);
+
+        $taxRates = array_merge($taxRates, zen_get_multiple_tax_rates($products[$loop]['tax_class_id'], $taxCountryId, $taxZoneId));
         $order->products[$index]['tax_groups'] = $taxRates;
         $order->products[$index]['tax_description'] = implode(' + ', array_keys($taxRates));
     }
