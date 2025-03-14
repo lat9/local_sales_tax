@@ -77,14 +77,14 @@ class ScriptedInstaller extends ScriptedInstallBase
             DIR_FS_ADMIN . DIR_WS_LANGUAGES . 'english/local_sales_taxes.php',
             DIR_FS_ADMIN . DIR_WS_LANGUAGES . 'english/extra_definitions/lang.local_sales_taxes.php',
             DIR_FS_ADMIN . DIR_WS_LANGUAGES . 'english/extra_definitions/local_sales_taxes.php',
-            DIR_FS_ADMIN . 'local_sales_tax.php',
+            DIR_FS_ADMIN . 'local_sales_taxes.php',
 
             DIR_FS_CATALOG . DIR_WS_INCLUDES . 'extra_datafiles/ot_local_sales_taxes_databse_tables.php',
             DIR_FS_CATALOG . DIR_WS_INCLUDES . 'classes/observers/auto.local_sales_tax.php',
             DIR_FS_CATALOG . DIR_WS_INCLUDES . 'extra_datafiles/ot_local_sales_taxes.php',
             DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'extra_functions/functions_local_sales_taxes.php',
             DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'extra_functions/functions_local_taxes.php',
-            DIR_FS_CATALOG . DIR_WS_LANGUAGES . 'english/modules/order_total/lang.ot_local_sales_taxes.php', 
+            DIR_FS_CATALOG . DIR_WS_LANGUAGES . 'english/modules/order_total/lang.ot_local_sales_taxes.php',
             DIR_FS_CATALOG . DIR_WS_LANGUAGES . 'english/modules/order_total/ot_local_sales_taxes.php',
             DIR_FS_CATALOG . DIR_WS_MODULES . 'order_total/ot_local_sales_taxes.php',
         ];
