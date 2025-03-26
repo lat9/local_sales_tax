@@ -37,7 +37,7 @@ class zcObserverLocalSalesTax extends base
     public function notify_order_cart_external_tax_rate_lookup(\order &$order, string $e, string $store_tax_basis, array &$products, int &$loop, int &$index, int &$taxCountryId, int &$taxZoneId, &$taxRates): void
     {
         $this->getLocalZoneTaxes($order, $taxZoneId, $store_tax_basis);
-        if (count($this->localTaxes) === 0) {
+        if (!isset($this->localTaxes)) {
             return;
         }
 
@@ -77,7 +77,7 @@ class zcObserverLocalSalesTax extends base
 
     public function notify_ot_shipping_tax_calcs(&$class, string $e, $unused, bool &$external_shipping_tax_handler, int|float &$shipping_tax, string &$shipping_tax_description): void
     {
-        if (!isset($this->localTaxes) || count($this->localTaxes) === 0) {
+        if (!isset($this->localTaxes)) {
             return;
         }
 
@@ -133,6 +133,11 @@ class zcObserverLocalSalesTax extends base
             return;
         }
 
+        if ($store_tax_basis === 'Shipping' && str_starts_with($order->info['shipping_module_code'], 'storepickup')) {
+            $taxZoneId = (int)STORE_ZONE;
+            $store_tax_basis = 'Store';
+        }
+
         global $db;
 
         $taxsql =
@@ -143,11 +148,12 @@ class zcObserverLocalSalesTax extends base
 
         //get tax rates for field lookup
         $local_taxes = $db->Execute($taxsql);
-        $this->localTaxes = [];
         if ($local_taxes->EOF) {
+            unset($this->localTaxes);
             return;
         }
 
+        $this->localTaxes = [];
         foreach ($local_taxes as $next_local) {
             $this->localTaxes[$next_local['local_tax_id']] = [
                 'id' => $next_local['local_tax_label'],
@@ -163,10 +169,7 @@ class zcObserverLocalSalesTax extends base
 
     protected function getOrderData(\order &$order, string $store_tax_basis, string $taxmatch): string
     {
-        $is_store_pickup = str_starts_with($order->info['shipping_module_code'], 'storepickup');
-        $ot_local_sales_taxes_basis = ($is_store_pickup === true) ? 'Store Pickup' : $store_tax_basis;
-
-        switch ($ot_local_sales_taxes_basis) {
+        switch ($store_tax_basis) {
             case 'Shipping':
                 if (empty($order->delivery[$taxmatch])) {
                     $orderdata = $order->billing[$taxmatch];
@@ -179,7 +182,6 @@ class zcObserverLocalSalesTax extends base
                 $orderdata = $order->billing[$taxmatch];
                 break;
 
-            case 'Store Pickup':
             default:
                 $orderdata = $this->store_tax_basis;
                 break;
