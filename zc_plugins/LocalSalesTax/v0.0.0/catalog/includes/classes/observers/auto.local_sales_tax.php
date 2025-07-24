@@ -36,6 +36,11 @@ class zcObserverLocalSalesTax extends base
 
     public function notify_order_cart_external_tax_rate_lookup(\order &$order, string $e, string $store_tax_basis, array &$products, int &$loop, int &$index, int &$taxCountryId, int &$taxZoneId, &$taxRates): void
     {
+        if ($store_tax_basis === 'Shipping' && str_starts_with($order->info['shipping_module_code'], 'storepickup')) {
+            $taxZoneId = (int)STORE_ZONE;
+            $store_tax_basis = 'Store';
+        }
+
         $this->getLocalZoneTaxes($order, $taxZoneId, $store_tax_basis);
         if (!isset($this->localTaxes)) {
             return;
@@ -131,11 +136,6 @@ class zcObserverLocalSalesTax extends base
     {
         if (isset($this->localTaxes)) {
             return;
-        }
-
-        if ($store_tax_basis === 'Shipping' && str_starts_with($order->info['shipping_module_code'], 'storepickup')) {
-            $taxZoneId = (int)STORE_ZONE;
-            $store_tax_basis = 'Store';
         }
 
         global $db;
