@@ -1,6 +1,6 @@
 <?php
 return [
-    'pluginVersion' => 'v3.0.1',
+    'pluginVersion' => 'v3.0.2',
     'pluginName' => 'Local Sales Tax',
     'pluginDescription' => 'This plugin adds the support for local sales tax zones. In the United States a local sales tax is a additional tax levied by the county or city in addition to the tax levied
 by a state.',
