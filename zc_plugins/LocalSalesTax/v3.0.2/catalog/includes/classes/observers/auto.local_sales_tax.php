@@ -2,7 +2,7 @@
 /**
  *  ot_local_sales_tax module
  *
- * Last updated: v3.0.1
+ * Last updated: v3.0.2
  *
  *   By Heather Gardner AKA: LadyHLG
  *   The module should apply tax based on the field you
