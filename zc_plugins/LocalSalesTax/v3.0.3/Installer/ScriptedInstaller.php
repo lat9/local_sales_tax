@@ -37,6 +37,8 @@ class ScriptedInstaller extends ScriptedInstallBase
             zen_register_admin_page('localSalesTaxes', 'BOX_TAXES_LOCAL_SALES_TAXES', 'FILENAME_LOCAL_SALES_TAXES', '', 'taxes', 'Y');
         }
 
+        parent::executeInstall();
+
         return true;
     }
 
@@ -47,6 +49,7 @@ class ScriptedInstaller extends ScriptedInstallBase
     //
     protected function executeUpgrade($oldVersion)
     {
+        parent::executeUpgrade($oldVersion);
     }
 
     /**
@@ -58,6 +61,7 @@ class ScriptedInstaller extends ScriptedInstallBase
         $this->executeInstallerSql(
             "DELETE FROM " . TABLE_CONFIGURATION . " WHERE configuration_key LIKE 'MODULE\_ORDER\_TOTAL\_COUNTY\_LOCAL\_TAX\_'"
         );
+        parent::executeUninstall();
         return true;
     }
 
